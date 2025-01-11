@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/images/bg.png'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ffffff; /* White color for the heading */
+        }
+
+        .content {
+            margin: 50px auto;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .section:nth-child(1) {
+            background-color: #ffebd6; /* Light orange */
+        }
+
+        .section:nth-child(2) {
+            background-color: #d6ffe8; /* Light green */
+        }
+
+        .section:nth-child(3) {
+            background-color: #d6e7ff; /* Light blue */
+        }
+
+        .section:nth-child(4) {
+            background-color: #f5d6ff; /* Light purple */
+        }
+
+        .section h2 {
+            margin-left: 10px; /* Indent for headings */
+        }
+
+        .section p, .section ul {
+            text-align: justify; /* Justified alignment for content */
+            margin-left: 20px; /* Indent for content */
+            margin-right: 20px;
+        }
+
+        .image-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        nav {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+        }
+
+        nav a {
+            color: #ffffff; /* White color for links */
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        nav span {
+            color: #ffffff; /* White color for the "|" separators */
+            margin: 0 5px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a><span>|</span><a href="/login">Login</a>
+    </nav>
+    <h1>About the Project</h1>
+    <div class="content">
+        <div class="section">
+            <h2>What is Digital Twins?</h2>
+            <p>
+                Digital Twins are virtual replicas of physical systems or devices that allow us to monitor, analyze, and predict their behavior in real-time. 
+                In the context of electric vehicles, digital twins are used to create a digital counterpart of the battery, providing insights into its performance, 
+                degradation, and potential failures.
+            </p>
+            <div class="image-container">
+                <img src="/static/images/digitalTwin.jpg" alt="Digital Twin Example"> <!-- Replace with your image URL -->
+            </div>
+        </div>
+        <div class="section">
+            <h2>What are SoC and SoH?</h2>
+            <p>
+                <strong>State of Charge (SoC):</strong> Represents the current charge level of a battery as a percentage of its maximum capacity.
+                <br>
+                <strong>State of Health (SoH):</strong> Measures the overall health and remaining lifespan of a battery compared to its original state.
+            </p>
+        </div>
+        <div class="section">
+            <h2>What is Deep Learning and Explainable AI?</h2>
+            <p>
+                <strong>Deep Learning:</strong> An advanced subset of machine learning that uses neural networks with multiple layers to model and predict complex patterns.
+                <ul>
+                    <li>
+                        <strong>DNN (Deep Neural Networks):</strong> Composed of multiple layers of neurons, DNNs are used for tasks like classification and regression.
+                    </li>
+                    <li>
+                        <strong>LSTM (Long Short-Term Memory):</strong> A specialized type of neural network designed for sequential data, such as time-series data.
+                    </li>
+                </ul>
+            </p>
+            <p>
+                <strong>Explainable AI (XAI):</strong> Refers to techniques that make AI models interpretable and understandable to humans. 
+                Surrogate models, such as Decision Trees and Linear Regression, can be used to approximate and explain the predictions made by complex AI models.
+            </p>
+        </div>
+        <div class="section">
+            <h2>Project Goals and Aims</h2>
+            <p>
+                This project focuses on developing a system to predict the State of Charge (SoC) and State of Health (SoH) of electric vehicle batteries. 
+                By leveraging digital twins, advanced deep learning models (DNN and LSTM), and explainable AI techniques, the aim is to provide accurate and interpretable predictions 
+                to enhance battery management systems. The ultimate goal is to improve battery efficiency, safety, and lifespan in electric vehicles.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

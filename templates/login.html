@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"> <!-- Importing elegant font -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif; /* Using the elegant font */
+            background-color: #e6f7ff; /* Super light blue background */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        nav {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        nav a {
+            color: #004080; /* Dark blue color for links */
+            text-decoration: none;
+            font-weight: 600; /* Slightly bold font for elegance */
+            margin: 0 10px;
+        }
+
+        nav span {
+            color: #004080; /* Dark blue for the "|" separator */
+            font-weight: 600;
+            margin: 0 5px;
+        }
+
+        nav a:hover {
+            color: #0080ff; /* Lighter blue for hover effect */
+            text-decoration: underline;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6600; /* Bright orange for the heading */
+            margin-top: 50px;
+            font-size: 36px; /* Larger and elegant heading */
+        }
+
+        form {
+            background-color: #ffffff; /* White background for form */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            padding: 30px;
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centering form content */
+        }
+
+        form label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+            text-align: left; /* Aligning labels to the left */
+            width: 100%; /* Make labels span the full width */
+        }
+
+        form input {
+            width: 100%; /* Make inputs span the full width */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        form input:focus {
+            border-color: #0080ff; /* Light blue focus border */
+            outline: none;
+            box-shadow: 0 0 5px #0080ff;
+        }
+
+        form button {
+            background-color: #28a745; /* Green button */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        form button:hover {
+            background-color: #218838; /* Darker green for hover */
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        p a {
+            color: #ff6600; /* Orange for links */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p a:hover {
+            color: #cc5200; /* Darker orange for hover effect */
+        }
+
+        /* Center everything */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <span>|</span>
+        <a href="/about">About</a>
+    </nav>
+
+    <div class="container">
+        <h1>Login</h1>
+        <form method="POST">
+            <label>Username</label>
+            <input type="text" name="username" required>
+            <label>Password</label>
+            <input type="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="/register">Register here</a></p>
+    </div>
+</body>
+</html>

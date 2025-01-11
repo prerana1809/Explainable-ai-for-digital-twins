@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Results</title>
+    <style>
+        /* General body and layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; /* Super light blue background */
+            margin: 0;
+            padding: 0;
+            text-align: justify; /* Justified alignment for all text */
+        }
+
+        /* Container for the header link */
+        .header-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 18px;
+            color: #2196f3; /* Blue */
+            text-decoration: none;
+        }
+
+        .header-link:hover {
+            color: #ff6600;
+        }
+
+        /* Title and model headers */
+        h1, h2, h3, h6 {
+            color: #004c8c; /* Dark blue for headings */
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        h2 {
+            background-color: #009688; /* Teal for section headings */
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Styling for paragraphs and lists */
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Section with images */
+        .image-container {
+            display: flex;
+            justify-content: center; /* Center alignment */
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .image-container div {
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 400px; /* Increased image size */
+            max-height: 300px; /* Increased image size */
+            border-radius: 10px;
+            border: 3px solid #004c8c; /* Border for images */
+        }
+
+        .image-container p {
+            color: #004c8c;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* XAI Section Images */
+        .xai-container {
+            display: flex;
+            justify-content: space-evenly;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .xai-container img {
+            width: 350px; /* All XAI images same size */
+            height: 230px; /* All XAI images same size */
+            border-radius: 10px;
+            border: 3px solid #004c8c;
+        }
+
+        /* Information and model results section */
+        .model-results {
+            background-color: #ffffff; /* White background for results */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .model-results h3 {
+            color: #009688; /* Teal color for sub-headings */
+        }
+
+        /* Final insights and analysis */
+        .final-insights {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-insights h3 {
+            color: #004c8c; /* Dark blue for final insights header */
+        }
+
+        .final-insights ul {
+            padding-left: 20px;
+        }
+
+        .final-insights li {
+            color: #004c8c;
+        }
+
+        .final-insights p {
+            color: #004c8c;
+            font-weight: bold;
+        }
+
+        hr {
+            border: 1px solid #004c8c;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        /* Close button for the lightbox */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #ffffff;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #ff0000;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Dashboard Link -->
+    <a href="{{ url_for('dashboard') }}" class="header-link">Dashboard</a>
+
+    <h1>Model Results</h1>
+
+    <!-- SoC DNN -->
+    <div class="model-results">
+        <h2>SoC - DNN Model</h2>
+        <ul>
+            <li><strong>MSE:</strong> 1.982248864272678e-06<br>
+                MSE value is very small. So, differences between the predicted and true SoC values are very small. This indicates that the model is performing exceptionally well in capturing the true behavior of the data.
+            </li>
+            <li><strong>MAE:</strong> 0.001169347090590118<br>
+                On average, the model's predictions deviate from the true SoC values by only 0.0011 units. This further supports the model's high accuracy.
+            </li>
+            <li><strong>R²:</strong> 0.9999999360357436<br>
+                R² value is close to 1 indicating that it fits very close to training data (no variance) and is near-perfect.
+            </li>
+        </ul>
+
+        <div class="image-container">
+            <div>
+                <img src="/static/images/SoC-DNN.png" alt="DNN" onclick="openLightbox(this)">
+                <p>Actual vs Predicted SoC</p>
+            </div>
+            <div>
+                <img src="/static/images/SoC-DNN-residuals.png" alt="residuals" onclick="openLightbox(this)">
+                <p>Residuals Visualization</p>
+            </div>
+        </div>
+
+        <h3>XAI for DNN</h3>
+        <ul>
+            <li><strong>Mean Squared Error (MSE) of the DNN Surrogate Model:</strong> 0.5773<br>
+                MSE of 0.5773 suggests there is some discrepancy between the surrogate model and the LSTM model, but the error is not extremely large.
+            </li>
+            <li><strong>R² Score of the DNN Surrogate Model:</strong> 0.9814<br>
+                R² score of 0.9814 means that the surrogate model captures 98.14% of the variance in the LSTM predictions. => Surrogate model is very good at approximating the behavior of the LSTM model.
+
+            </li>
+        </ul>
+        <div class="image-container">
+            <div>
+                <img src="/static/images/SoC-LR.png" alt="Linear Regression" onclick="openLightbox(this)">
+                <p>Linear Regression</p>
+            </div>
+            <div>
+                <img src="/static/images/SoC-DT.png" alt="Decision Tree" onclick="openLightbox(this)">
+                <p>Decision Tree</p>
+            </div>
+        </div>
+
+        <p>
+            Model was trained on 3 features:
+            <ol>
+                <li>
+                    Voltage measured (corr=1)
+                </li>
+                <li>
+                    current measured (corr=0.33)
+                </li>
+                <li>
+                voltage charge (corr=0.26)
+                </li>
+            </ol>
+<p>Since correlation value of 1 is much greater than the correlation values of the other 2, Voltage_measured alone influences the prediction of the SoC value
+        </p>
+
+        
+    </div>
+
+    <!-- SoC LSTM -->
+    <div class="model-results">
+        <h2>SoC - LSTM Model</h2>
+        <ul>
+            <li><strong>MSE:</strong> 0.0003414458646209141</li>
+            <li><strong>MAE:</strong> 0.017906254938363755</li>
+            <li><strong>R²:</strong> 0.9999889820439668</li>
+        </ul>
+        <div class="image-container">
+            <div>
+                <img src="/static/images/SoC-LSTM.png" alt="LSTM" onclick="openLightbox(this)">
+                <p>Actual vs Predicted SoC</p>
+            </div>
+            <div>
+                <img src="/static/images/SoC-LSTM-residuals.png" alt="residuals" onclick="openLightbox(this)">
+                <p>Residuals Visualization</p>
+            </div>
+        </div>
+
+        <h3>XAI for LSTM</h3>
+        <ul>
+            <li>
+                <strong>Mean Squared Error (MSE) of the Surrogate Model:</strong> 0.5764
+            </li>
+            <li>
+                <strong>R² Score of the Surrogate Model:</strong> 0.9814
+            </li>
+        </ul>
+        <div class="image-container">
+            <div>
+                <img src="/static/images/SoC-LSTM-LR.png" alt="Linear Regression" onclick="openLightbox(this)">
+                <p>Linear Regression</p>
+            </div>
+            <div>
+                <img src="/static/images/SoC-LSTM-DT.png" alt="Decision Tree" onclick="openLightbox(this)">
+                <p>Decision Tree</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison of SoC DNN vs LSTM -->
+    <div class="model-results">
+        <h2>Comparison of DNN vs LSTM for SoC</h2>
+        <img src="/static/images/SoC-comparison.png" alt="DNN vs LSTM Comparison" onclick="openLightbox(this)" style="display: block; margin: 0 auto; max-width: 60%;">
+    </div>
+
+    <!-- Final Insights for SoC -->
+    <div class="final-insights for SoC">
+        <h3>Final Insights for SoC</h3>
+        <ul>
+            <li>The DNN model performs better than the LSTM model based on MSE, R², and MAE.</li>
+            <li>The DNN's ability to achieve near-perfect prediction is advantageous for situations requiring high accuracy.</li>
+            <li>While the LSTM performs well, it exhibits slightly higher prediction error, but still remains highly accurate.</li>
+            <li>Surrogate Models perform identically for  both DNN and LSTM</li>
+        </ul>
+    </div>
+    <br>
+
+    <!-- SoH DNN -->
+    <div class="model-results">
+        <h2>SoH - DNN Model</h2>
+        <ul>
+            <li><strong>MSE:</strong> 0.003429541328759312<br>
+                MSE of 0.0034 suggests that there are some prediction errors, but the model still captures most of the underlying data patterns.
+            </li>
+            <li><strong>MAE:</strong> 0.03710175987645667<br>
+                MAE of 0.0371 indicates that, on average, the model's predictions deviate from the actual SoH values by 3.71%, a good result for the model.
+            </li>
+            <li><strong>R²:</strong> 0.9998720463651989<br>
+                R² score of 0.99987 implies that the model explains nearly 99.99% of the variance in the SoH values, showing its robustness.
+            </li>
+        </ul>
+
+        <div class="image-container">
+            <div>
+                <img src="/static/images/SoH-DNN.png" alt="DNN" onclick="openLightbox(this)">
+                <p>Actual vs Predicted SoH</p>
+            </div>
+            <div>
+                <img src="/static/images/SoH-DNN-residuals.png" alt="residuals" onclick="openLightbox(this)">
+                <p>Residuals Visualization</p>
+            </div>
+        </div>
+
+        <h3>XAI for DNN</h3>
+        <ul>
+            <li>
+                <strong>Mean Squared Error (MSE) of the DNN Surrogate Model:</strong> 0.4691<br>
+                MSE of 0.4691 indicates some margin of error in the surrogate model but still reasonably approximates the behavior of the LSTM model.
+            </li>
+            <li>
+                <strong>R² Score of the DNN Surrogate Model:</strong> 0.9648<br>
+                R² score of 0.9648 suggests that the surrogate model effectively approximates the SoH values predicted by the LSTM model.
+            </li>
+        </ul>
+        <div class="image-container">
+            <div>
+                <img src="/static/images/SoH-DNN-LR.png" alt="Linear Regression" onclick="openLightbox(this)">
+                <p>Linear Regression</p>
+            </div>
+            <div>
+                <img src="/static/images/SoH-DNN-DT.png" alt="Decision Tree" onclick="openLightbox(this)">
+                <p>Decision Tree</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SoH LSTM -->
+    <div class="model-results">
+        <h2>SoH - LSTM Model</h2>
+        <ul>
+            <li><strong>MSE:</strong> 0.007692740102359101</li>
+            <li><strong>MAE:</strong> 0.05712209864604732</li>
+            <li><strong>R²:</strong> 0.9997531726420576</li>
+        </ul>
+        <div class="image-container">
+            <div>
+                <img src="/static/images/SoH-LSTM.png" alt="LSTM" onclick="openLightbox(this)">
+                <p>Actual vs Predicted SoH</p>
+            </div>
+            <div>
+                <img src="/static/images/SoH-LSTM-residuals.png" alt="residuals" onclick="openLightbox(this)">
+                <p>Residuals Visualization</p>
+            </div>
+        </div>
+
+        <h3>XAI for LSTM</h3>
+        <ul>
+            <li><strong>Mean Squared Error (MSE) of the Surrogate Model:</strong> 0.5342</li>
+            <li><strong>R² Score of the Surrogate Model:</strong> 0.9751</li>
+        </ul>
+        <div class="image-container">
+            <div>
+                <img src="/static/images/SoH-LSTM-LR.png" alt="Linear Regression" onclick="openLightbox(this)">
+                <p>Linear Regression</p>
+            </div>
+            <div>
+                <img src="/static/images/SoH-LSTM-DT.png" alt="Decision Tree" onclick="openLightbox(this)">
+                <p>Decision Tree</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison of SoH DNN vs LSTM -->
+    <div class="model-results">
+        <h2>Comparison of DNN vs LSTM for SoH</h2>
+        <img src="/static/images/SoH-comparison.png" alt="DNN vs LSTM Comparison" onclick="openLightbox(this)" style="display: block; margin: 0 auto; max-width: 60%;">
+    </div>
+
+    <!-- Final Insights for SoH -->
+    <div class="final-insights">
+        <h3>Final Insights for SoH</h3>
+        <ul>
+            <li>The DNN model is slightly more accurate than the LSTM model based on both MSE and R², making it a better choice for SoH predictions in most cases.</li>
+            <li>The MSE values are extremely close. Both surrogate models approximate their original models (DNN and LSTM) with nearly the same level of error.</li>
+            <li>The R² score is the same for both surrogate models, meaning each surrogate model captures 97.65% of the variance in the predictions of their respective original models.</li>
+        </ul>
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-btn">&times;</span>
+        <img id="lightbox-img" src="" alt="Pop-up Image">
+    </div>
+
+    <script>
+        // Open the lightbox with the clicked image
+        function openLightbox(image) {
+            document.getElementById("lightbox-img").src = image.src;
+            document.getElementById("lightbox").style.display = "flex";
+        }
+
+        // Close the lightbox when clicked outside the image
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

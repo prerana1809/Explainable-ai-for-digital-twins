@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+        form {
+            margin: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 40%;
+            vertical-align: top;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+        .sticky-notes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .sticky-notes div {
+            width: 22%;
+            height: 100px;
+            color: black; /* Change text color to black */
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            perspective: 1000px; /* To enable 3D effect */
+            position: relative;
+        }
+        .sticky-notes div:nth-child(1) {
+            background-color: #ff5722; /* Red */
+        }
+        .sticky-notes div:nth-child(2) {
+            background-color: #ff9800; /* Orange */
+        }
+        .sticky-notes div:nth-child(3) {
+            background-color: #8bc34a; /* Green */
+        }
+        .sticky-notes div:nth-child(4) {
+            background-color: #2196f3; /* Blue */
+        }
+        .sticky-notes div:nth-child(5) {
+            background-color: #9c27b0; /* Purple */
+        }
+        .sticky-notes div:nth-child(6) {
+            background-color: #00bcd4; /* Cyan */
+        }
+        .sticky-notes div:nth-child(7) {
+            background-color: #ffc107; /* Yellow */
+        }
+
+        /* Front and back of the sticky note */
+        .sticky-notes div .front, .sticky-notes div .back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            transition: transform 0.6s;
+        }
+
+        .sticky-notes div .front {
+            background-color: #f6a6c1; /* Baby pink */
+        }
+
+        .sticky-notes div .back {
+            transform: rotateY(180deg); /* Initially rotated */
+            background-color: #f8c8d1; /* Pastel pink */
+        }
+
+        /* Apply flip effect */
+        .sticky-notes div.flipped .front {
+            transform: rotateY(180deg);
+        }
+
+        .sticky-notes div.flipped .back {
+            transform: rotateY(0deg);
+        }
+
+        /* Add space for SoC form */
+        .soc-form input {
+            margin-bottom: 25px;
+        }
+
+        .dashboard-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 18px;
+            color: #2196f3; /* Blue */
+            text-decoration: none;
+        }
+
+        .dashboard-link:hover {
+            color: #ff6600;
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('dashboard') }}" class="dashboard-link">Dashboard</a>
+    <h1>Make Predictions</h1>
+
+    <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+        <form method="POST" class="soc-form">
+            <!-- SoC prediction form -->
+            <div>
+                <h3 style="color: #4CAF50;">SoC Prediction</h3>
+                <input type="text" name="Voltage_measured" value="{{ inputs_soc['Voltage_measured'] if inputs_soc else '' }}" placeholder="Voltage Measured" required>
+                <input type="text" name="Current_measured" value="{{ inputs_soc['Current_measured'] if inputs_soc else '' }}" placeholder="Current Measured" required>
+                <input type="text" name="Voltage_charge" value="{{ inputs_soc['Voltage_charge'] if inputs_soc else '' }}" placeholder="Voltage Charge" required>
+                <button type="submit" name="predict_soc">Predict SoC</button>
+            </div>
+        </form>
+    
+        <form method="POST">
+            <!-- SoH prediction form -->
+            <div>
+                <h3 style="color: #ff9800;">SoH Prediction</h3>
+                <input type="text" name="Capacity" value="{{ inputs_soh['Capacity'] if inputs_soh else '' }}" placeholder="Capacity" required>
+                <input type="text" name="Capacity_Fade" value="{{ inputs_soh['Capacity_Fade'] if inputs_soh else '' }}" placeholder="Capacity Fade" required>
+                <input type="text" name="Resistance_Increase" value="{{ inputs_soh['Resistance_Increase'] if inputs_soh else '' }}" placeholder="Resistance Increase" required>
+                <input type="text" name="Current_charge" value="{{ inputs_soh['Current_charge'] if inputs_soh else '' }}" placeholder="Current Charge" required>
+                <input type="text" name="Voltage_charge" value="{{ inputs_soh['Voltage_charge'] if inputs_soh else '' }}" placeholder="Voltage Charge" required>
+                <button type="submit" name="predict_soh">Predict SoH</button>
+            </div>
+        </form>
+    </div>
+    
+    {% if soc_prediction %}
+        <p class="result">SoC Prediction: {{ soc_prediction }}</p>
+    {% endif %}
+    {% if soh_prediction %}
+        <p class="result">SoH Prediction: {{ soh_prediction }}</p>
+    {% endif %}
+    
+    <div class="sticky-notes">
+        <div onclick="this.classList.toggle('flipped')">
+            <div class="front">
+                <p><strong>Voltage Measured</strong></p>
+            </div>
+            <div class="back">
+                <p>The voltage level of the battery being measured at the moment.</p>
+            </div>
+        </div>
+        <div onclick="this.classList.toggle('flipped')">
+            <div class="front">
+                <p><strong>Current Measured</strong></p>
+            </div>
+            <div class="back">
+                <p>The amount of current being drawn by the battery.</p>
+            </div>
+        </div>
+        <div onclick="this.classList.toggle('flipped')">
+            <div class="front">
+                <p><strong>Voltage Charge</strong></p>
+            </div>
+            <div class="back">
+                <p>The voltage provided for charging the battery.</p>
+            </div>
+        </div>
+        <div onclick="this.classList.toggle('flipped')">
+            <div class="front">
+                <p><strong>Capacity</strong></p>
+            </div>
+            <div class="back">
+                <p>The maximum charge capacity of the battery.</p>
+            </div>
+        </div>
+        <div onclick="this.classList.toggle('flipped')">
+            <div class="front">
+                <p><strong>Capacity Fade</strong></p>
+            </div>
+            <div class="back">
+                <p>The rate at which the battery's capacity is decreasing over time.</p>
+            </div>
+        </div>
+        <div onclick="this.classList.toggle('flipped')">
+            <div class="front">
+                <p><strong>Resistance Increase</strong></p>
+            </div>
+            <div class="back">
+                <p>The increase in internal resistance of the battery during use.</p>
+            </div>
+        </div>
+        <div onclick="this.classList.toggle('flipped')">
+            <div class="front">
+                <p><strong>Current Charge</strong></p>
+            </div>
+            <div class="back">
+                <p>The amount of current currently used to charge the battery.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

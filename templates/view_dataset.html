@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Dataset</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e6f7ff; /* Light blue background */
+            margin: 0;
+            padding: 0;
+            color: #333;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        nav {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+        }
+
+        nav a {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 18px;
+            color: #2196f3; /* Blue */
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: #ff6600;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6600;
+            margin-top: 50px;
+            font-size: 36px;
+        }
+
+        /* Full-width Form Container Styling with Padding */
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 80%; /* Make the form take the full width of the screen */
+            margin: 20px 0; /* Ensure margin from top and bottom */
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 20px; /* Padding added to the left */
+            padding-right: 20px; /* Padding added to the right */
+        }
+
+        form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        form label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        form select {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+
+        form select:focus {
+            border-color: #0080ff;
+            outline: none;
+            box-shadow: 0 0 5px #0080ff;
+        }
+
+        form button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        form button:hover {
+            background-color: #218838;
+        }
+
+        /* Table Styling */
+        .table-container {
+            width: 100%;
+            overflow-x: auto; /* Enable horizontal scrolling if the table overflows */
+            margin-top: 20px;
+            padding: 0 20px; /* Add some padding to the left and right */
+        }
+
+        table {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table th, table td {
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #004080;
+            color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0; /* Stick to the top */
+            z-index: 1; /* Ensure it stays on top while scrolling */
+        }
+
+        table td {
+            background-color: #f9f9f9;
+        }
+
+        table tr:nth-child(even) td {
+            background-color: #f1f1f1;
+        }
+
+        table tr:hover td {
+            background-color: #e6f7ff;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff6600;
+        }
+
+        p a {
+            color: #ff6600;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p a:hover {
+            color: #cc5200;
+        }
+
+        /* Center everything */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+    </nav>
+
+    <div class="container">
+        <h1>View Dataset</h1>
+        <div class="form-container">
+            <form method="POST">
+                <label for="dataset">Choose a dataset:</label>
+                <select id="dataset" name="dataset" required>
+                    <option value="00005">00005</option>
+                    <option value="00006">00006</option>
+                    <option value="00007">00007</option>
+                    <option value="00018">00018</option>
+                    <option value="finalData">finalData</option>
+                </select>
+                <button type="submit">View Dataset</button>
+            </form>
+        </div>
+
+        {% if dataset_name and data %}
+            <h2>Dataset: {{ dataset_name }}</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            {% for key in data[0].keys() %}
+                                <th>{{ key }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                            <tr>
+                                {% for value in row.values() %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% elif dataset_name %}
+            <p>No data found for the selected dataset!</p>
+        {% endif %}
+    </div>
+</body>
+</html>
