@@ -401,6 +401,20 @@
     <div class="model-results">
         <h2>Comparison of DNN vs LSTM for SoH</h2>
         <img src="/static/images/SoH-comparison.png" alt="DNN vs LSTM Comparison" onclick="openLightbox(this)" style="display: block; margin: 0 auto; max-width: 60%;">
+        <p>
+            <ul>
+                <li>
+                    LSTM's residuals' symmetry around 0 shows it does not consistently overpredict or underpredict.
+                </li>
+                <li>
+                    DNN shows a slightly narrower spread of residuals, which aligns with its better MSE and MAE. (Tighter Spread)
+                </li>
+                <li>
+                    If the goal is purely to minimize prediction error across the dataset, DNN might be better. <br>
+                    DNN is better due to its lower MSE and MAE, as it has a tighter residual spread despite a slight bias.
+                </li>
+            </ul>
+        </p>
     </div>
 
     <!-- Final Insights for SoH -->
